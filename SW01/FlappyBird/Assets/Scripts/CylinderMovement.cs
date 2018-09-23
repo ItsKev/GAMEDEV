@@ -5,6 +5,7 @@ using UnityEngine;
 public class CylinderMovement : MonoBehaviour
 {
     public float MoveSpeed { get; set; }
+    public bool GameStarted { get; set; }
 
     // Use this for initialization
     private void Start()
@@ -15,11 +16,9 @@ public class CylinderMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        gameObject.transform.Translate(-MoveSpeed * Time.deltaTime, 0, 0);
-
-        if (gameObject.transform.position.x <= -25)
+        if (GameStarted)
         {
-            Destroy(gameObject);
+            gameObject.transform.Translate(-MoveSpeed * Time.deltaTime, 0, 0);
         }
     }
 }
