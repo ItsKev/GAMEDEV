@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public UnityEvent PlayerDeathEvent = new UnityEvent();
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         this.PlayerDeathEvent.Invoke();
     }

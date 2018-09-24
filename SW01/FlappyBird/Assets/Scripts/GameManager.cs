@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Text deathText;
 
-    private Rigidbody playeRigidbody;
+    private Rigidbody2D playeRigidbody;
     private PlayerMovement playerMovement;
     private bool gameStarted = false;
     private bool gameOver = false;
@@ -24,10 +25,11 @@ public class GameManager : MonoBehaviour
     private bool spawnTop = false;
     private List<GameObject> cylinders = new List<GameObject>();
     private int cylinderCounter = 0;
+    private Random random = new Random();
 
     private void Start()
     {
-        this.playeRigidbody = this.player.GetComponent<Rigidbody>();
+        this.playeRigidbody = this.player.GetComponent<Rigidbody2D>();
         this.playeRigidbody.isKinematic = true;
 
         this.playerMovement = this.player.GetComponent<PlayerMovement>();
@@ -68,11 +70,12 @@ public class GameManager : MonoBehaviour
                 if (!this.spawnTop)
                 {
                     this.spawnTop = true;
-                    position.y = -4;
+                    position.y = random.Next(-5, -2);
                 }
                 else
                 {
                     this.spawnTop = false;
+                    position.y = random.Next(2, 5);
                 }
 
                 var cylinder = this.cylinders[this.cylinderCounter];
@@ -84,7 +87,8 @@ public class GameManager : MonoBehaviour
                     cylinderCounter = 0;
                 }
 
-                this.timer = this.spawnRate;
+                this.timer = (float)(random.NextDouble() * 0.5 + this.spawnRate - 0.1);
+                Debug.Log("Timer: " + this.timer);
             }
         }
     }
@@ -103,8 +107,8 @@ public class GameManager : MonoBehaviour
         }
 
         this.playeRigidbody.isKinematic = true;
-        this.playeRigidbody.velocity = Vector3.zero;
-        this.playeRigidbody.angularVelocity = Vector3.zero;
+        this.playeRigidbody.velocity = Vector2.zero;
+        this.playeRigidbody.angularVelocity = 0;
 
         this.timer = 0f;
 
