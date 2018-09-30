@@ -1,38 +1,65 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayBall : MonoBehaviour
 {
+    public event EventHandler TriggerEnteredEvent;
 
+    [SerializeField] private float force = 15;
     private Rigidbody rigbody;
-    private bool spacePressed;
     private bool ballPlayed;
+    private bool movePositionXPositive;
 
-	// Use this for initialization
-	private void Start ()
-	{
-	    rigbody = GetComponent<Rigidbody>();
-	}
-	
-	// Update is called once per frame
-	private void Update () {
-	    if (Input.GetKeyDown(KeyCode.Space))
-	    {
-	        spacePressed = true;
-	    }
-	}
-
-    private void FixedUpdate()
+    public void ShootBall()
     {
-        if (spacePressed && !ballPlayed)
+        if (!ballPlayed)
         {
             ballPlayed = true;
-            spacePressed = false;
-
-            rigbody.AddForce(new Vector3(0, 0, 15), ForceMode.VelocityChange);
+            rigbody.AddForce(transform.forward * force, ForceMode.VelocityChange);
         }
     }
 
+    public void ChangeBallPosition(float speed)
+    {
+        if (movePositionXPositive)
+        {
+            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+            if (transform.position.x >= 1.5)
+            {
+                movePositionXPositive = false;
+            }
 
+        }
+        else
+        {
+            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+            if (transform.position.x <= -1.5)
+            {
+                movePositionXPositive = true;
+            }
+        }
+    }
+
+    // Use this for initialization
+    private void Start()
+    {
+        rigbody = GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        EventHandler handler = TriggerEnteredEvent;
+        if (handler != null)
+        {
+            handler(this, EventArgs.Empty);
+        }
+    }
 }
