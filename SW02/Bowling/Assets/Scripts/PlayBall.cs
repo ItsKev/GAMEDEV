@@ -18,7 +18,7 @@ public class PlayBall : MonoBehaviour
         if (!ballPlayed)
         {
             ballPlayed = true;
-            rigbody.AddForce(transform.forward * force, ForceMode.VelocityChange);
+            rigbody.AddForce(new Vector3(0, 0, force), ForceMode.VelocityChange);
         }
     }
 
@@ -41,6 +41,11 @@ public class PlayBall : MonoBehaviour
                 movePositionXPositive = true;
             }
         }
+    }
+
+    public void ResetBallPlayed()
+    {
+        ballPlayed = false;
     }
 
     // Use this for initialization

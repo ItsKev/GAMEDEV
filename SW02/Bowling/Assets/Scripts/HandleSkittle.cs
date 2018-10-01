@@ -3,7 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandleSkittle : MonoBehaviour {
+public class HandleSkittle : MonoBehaviour
+{
+
+    public event EventHandler SkittleFallenEvent;
+
+    private bool collidedAlready;
 
 	// Use this for initialization
 	private void Start () {
@@ -17,15 +22,28 @@ public class HandleSkittle : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(CheckIfSkittleStillStanding());
+        if (!collidedAlready)
+        {
+            collidedAlready = true;
+            StartCoroutine(CheckIfSkittleStillStanding());
+        }
     }
 
     private IEnumerator CheckIfSkittleStillStanding()
     {
-        yield return new WaitForSeconds(10);
-        if (Math.Abs(transform.rotation.x) > 0.5 || Math.Abs(transform.rotation.z) > 0.5)
+        yield return new WaitForSeconds(6);
+        if (Math.Abs(transform.rotation.x) > 0.1 || Math.Abs(transform.rotation.z) > 0.1)
         {
             Destroy(gameObject);
+            var handler = SkittleFallenEvent;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+        else
+        {
+            collidedAlready = false;
         }
     }
 

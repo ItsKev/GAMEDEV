@@ -10,6 +10,11 @@ public class CameraMovement : MonoBehaviour
     private Vector3 original;
     private bool triggerEntered;
 
+    public void ResetTriggerEntered()
+    {
+        triggerEntered = false;
+    }
+
     // Use this for initialization
     private void Start()
     {
