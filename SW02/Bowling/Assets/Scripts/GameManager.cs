@@ -66,9 +66,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartNewRound()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(8);
         if (!gameEnded)
         {
+            var lightTrigger = GameObject.FindGameObjectsWithTag("LightTrigger");
+            foreach (var gmObject in lightTrigger)
+            {
+                gmObject.GetComponent<LightTrigger>().DisableLight();
+            }
+
             ball.transform.position = startPosition;
             ball.transform.rotation = Quaternion.identity;
             ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;

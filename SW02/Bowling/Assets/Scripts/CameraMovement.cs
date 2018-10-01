@@ -23,10 +23,10 @@ public class CameraMovement : MonoBehaviour
 
         offset = transform.position - ball.transform.position;
 
-        ball.GetComponent<PlayBall>().TriggerEnteredEvent += OnTriggerEnteredEvent;
+        ball.GetComponent<PlayBall>().CameraTriggerEnteredEvent += OnCameraTriggerEnteredEvent;
     }
 
-    private void OnTriggerEnteredEvent(object sender, EventArgs e)
+    private void OnCameraTriggerEnteredEvent(object sender, EventArgs e)
     {
         triggerEntered = true;
     }

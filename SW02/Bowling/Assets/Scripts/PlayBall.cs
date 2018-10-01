@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class PlayBall : MonoBehaviour
 {
-    public event EventHandler TriggerEnteredEvent;
+    public event EventHandler CameraTriggerEnteredEvent;
 
     [SerializeField] private float force = 15;
     private Rigidbody rigbody;
@@ -31,7 +31,6 @@ public class PlayBall : MonoBehaviour
             {
                 movePositionXPositive = false;
             }
-
         }
         else
         {
@@ -61,10 +60,13 @@ public class PlayBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        EventHandler handler = TriggerEnteredEvent;
-        if (handler != null)
+        if (other.CompareTag("CameraTrigger"))
         {
-            handler(this, EventArgs.Empty);
+            EventHandler handler = CameraTriggerEnteredEvent;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
         }
     }
 }
