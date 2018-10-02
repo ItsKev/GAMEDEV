@@ -5,33 +5,25 @@ using UnityEngine;
 
 public class HandleSkittle : MonoBehaviour
 {
-
     public event EventHandler SkittleFallenEvent;
 
     private bool collidedAlready;
 
-	// Use this for initialization
-	private void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	private void Update () {
-		
-	}
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collidedAlready)
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Skittle"))
         {
-            collidedAlready = true;
-            StartCoroutine(CheckIfSkittleStillStanding());
+            if (!collidedAlready)
+            {
+                collidedAlready = true;
+                StartCoroutine(CheckIfSkittleStillStanding());
+            }
         }
     }
 
     private IEnumerator CheckIfSkittleStillStanding()
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         if (Math.Abs(transform.rotation.x) > 0.1 || Math.Abs(transform.rotation.z) > 0.1)
         {
             Destroy(gameObject);
@@ -46,5 +38,4 @@ public class HandleSkittle : MonoBehaviour
             collidedAlready = false;
         }
     }
-
 }

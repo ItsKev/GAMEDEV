@@ -31,16 +31,16 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        skittlePositions.Add(new Vector3(0f, 0.3f, 12.6f));
-        skittlePositions.Add(new Vector3(-0.4f, 0.3f, 13.3f));
-        skittlePositions.Add(new Vector3(0.4f, 0.3f, 13.3f));
-        skittlePositions.Add(new Vector3(-0.8f, 0.3f, 14f));
-        skittlePositions.Add(new Vector3(0f, 0.3f, 14f));
-        skittlePositions.Add(new Vector3(0.8f, 0.3f, 14f));
-        skittlePositions.Add(new Vector3(-1.2f, 0.3f, 14.7f));
-        skittlePositions.Add(new Vector3(-0.4f, 0.3f, 14.7f));
-        skittlePositions.Add(new Vector3(0.4f, 0.3f, 14.7f));
-        skittlePositions.Add(new Vector3(1.2f, 0.3f, 14.7f));
+        skittlePositions.Add(new Vector3(0f, 0.41f, 12.6f));
+        skittlePositions.Add(new Vector3(-0.4f, 0.41f, 13.3f));
+        skittlePositions.Add(new Vector3(0.4f, 0.41f, 13.3f));
+        skittlePositions.Add(new Vector3(-0.8f, 0.41f, 14f));
+        skittlePositions.Add(new Vector3(0f, 0.41f, 14f));
+        skittlePositions.Add(new Vector3(0.8f, 0.41f, 14f));
+        skittlePositions.Add(new Vector3(-1.2f, 0.41f, 14.7f));
+        skittlePositions.Add(new Vector3(-0.4f, 0.41f, 14.7f));
+        skittlePositions.Add(new Vector3(0.4f, 0.41f, 14.7f));
+        skittlePositions.Add(new Vector3(1.2f, 0.41f, 14.7f));
 
         playBall = ball.GetComponent<PlayBall>();
         startPosition = ball.transform.position;
@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartNewRound()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(6);
+        Debug.Log("Test");
         if (!gameEnded)
         {
             var lightTrigger = GameObject.FindGameObjectsWithTag("LightTrigger");
