@@ -11,10 +11,10 @@ public class WeaponLauncher : MonoBehaviour
 
     private void Start()
     {
-        inputManager.FireAllWeapons += InputManagerOnFireAllWeapons;
+        inputManager.FirePressed += OnFirePressed;
     }
 
-    private void InputManagerOnFireAllWeapons()
+    private void OnFirePressed()
     {
         FireWeapons();
     }

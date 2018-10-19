@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private BulletController bulletPrefab;
     [SerializeField] private GameObject launcher;
     [SerializeField] private GameObject dynamicBullets;
     [SerializeField] private float fireDelay;
@@ -15,10 +15,10 @@ public class Shoot : MonoBehaviour
     private void Start()
     {
         bulletStartPosition = launcher.GetComponent<Transform>();
-        GetComponentInParent<WeaponLauncher>().FireWeapons += OnFireWeapon;
+        GetComponentInParent<WeaponLauncher>().FireWeapons += OnFireWeapons;
     }
 
-    private void OnFireWeapon()
+    private void OnFireWeapons()
     {
         if (canShoot)
         {

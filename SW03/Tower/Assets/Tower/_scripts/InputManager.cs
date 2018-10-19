@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public event Action FireAllWeapons = delegate { };
+    public event Action FirePressed = delegate { };
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            FireAllWeapons();
+            FirePressed();
         }
     }
 }
